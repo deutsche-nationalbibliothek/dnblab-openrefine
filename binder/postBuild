@@ -1,26 +1,26 @@
 #!/bin/bash
-set -e
 
-# Download OpenRefine https://github.com/OpenRefine/OpenRefine/
-wget -q -O openrefine.tar.gz https://github.com/OpenRefine/OpenRefine/releases/download/3.5.0/openrefine-linux-3.5.0.tar.gz
-mkdir -p $HOME/.openrefine # app
-tar -xzf openrefine.tar.gz -C $HOME/.openrefine --strip 1
-rm openrefine.tar.gz
-sed -i 's/#REFINE_AUTOSAVE_PERIOD=60/REFINE_AUTOSAVE_PERIOD=1440/' $HOME/.openrefine/refine.ini
-mkdir -p $HOME/openrefine # data
+# Create a welcome.md file if it doesn't exist
+echo "# Welcome to My Binder Project" > welcome.md
 
-# Download openrefine-client https://github.com/opencultureconsulting/openrefine-client
-wget -q -O openrefine-client https://github.com/opencultureconsulting/openrefine-client/releases/download/v0.3.10/openrefine-client_0-3-10_linux
-chmod +x openrefine-client
-mkdir -p $HOME/.local/bin
-mv openrefine-client $HOME/.local/bin/
+# Configure JupyterLab to open welcome.md on startup
+mkdir -p ~/.jupyter/lab/user-settings/@jupyterlab/apputils-extension
+cat <<EOT > ~/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/default-layout.jupyterlab-settings
+{
+    "defaultLayout": {
+        "openFiles": [
+            "welcome.md"
+        ]
+    }
+}
+EOT
 
-# Install bash_kernel https://github.com/takluyver/bash_kernel
-python -m bash_kernel.install
-
-# move traitlet config in one of the Jupyter config directories
-mkdir -p $HOME/.jupyter/
-mv $HOME/binder/jupyter_notebook_config.py $HOME/.jupyter/
-
-# Enable JupyterLab launcher
-jupyter labextension install @jupyterlab/server-proxy
+# Optional: If you want to open it in the editor instead of just the file browser
+mkdir -p ~/.jupyter/lab/user-settings/@jupyterlab/docmanager-extension
+cat <<EOT > ~/.jupyter/lab/user-settings/@jupyterlab/docmanager-extension/plugin.jupyterlab-settings
+{
+    "defaultViewers": {
+        "markdown": "Markdown Preview"
+    }
+}
+EOT
