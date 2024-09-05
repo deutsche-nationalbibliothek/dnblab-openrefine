@@ -22,5 +22,12 @@ python -m bash_kernel.install
 mkdir -p $HOME/.jupyter/
 mv $HOME/binder/jupyter_notebook_config.py $HOME/.jupyter/
 
+# Install JupyterLab extensions using pip
+pip install jupyter-server-proxy
+
+# Ensure JupyterLab extensions are enabled
+jupyter serverextension enable --py jupyter_server_proxy
+
+
 # Enable JupyterLab launcher
-jupyter labextension install @jupyterlab/server-proxy
+#jupyter labextension install @jupyterlab/server-proxy
