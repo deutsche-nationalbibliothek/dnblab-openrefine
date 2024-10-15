@@ -24,13 +24,3 @@ mv $HOME/binder/jupyter_notebook_config.py $HOME/.jupyter/
 
 # Enable JupyterLab launcher
 jupyter labextension install @jupyterlab/server-proxy
-
-
-
-# Aktivieren der Jupyter Server-Erweiterungen
-jupyter serverextension enable --py jupyter_server_proxy --sys-prefix
-
-# Install JupyterLab extensions using pip
-#pip install jupyter-server-proxy
-# Ensure JupyterLab extensions are enabled
-#jupyter serverextension enable --py jupyter_server_proxy
